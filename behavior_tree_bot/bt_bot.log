@@ -1,0 +1,43 @@
+INFO:root:
+Selector: High Level Ordering of Strategies
+| Sequence: Defensive Strategy
+| | Check: check_backup_needed
+| | Action: backup
+| Selector: Attack Strategy
+| | Sequence: Attacking
+| | | Check: check_win
+| | | Action: attack
+| | Sequence: Weaken_Enemy_Strategy
+| | | Check: is_enemy
+| | | Action: attack_weakest
+| Sequence: Spread Strategy
+| | Check: is_neutral
+| | Action: spread_to_lowcost
+
+DEBUG:root:Executing:Selector: High Level Ordering of Strategies
+DEBUG:root:Executing:Sequence: Defensive Strategy
+DEBUG:root:Executing:Check: check_backup_needed
+DEBUG:root:Result: Check: check_backup_needed -> Failure
+DEBUG:root:Result: Sequence: Defensive Strategy -> Failure
+DEBUG:root:Executing:Selector: Attack Strategy
+DEBUG:root:Executing:Sequence: Attacking
+DEBUG:root:Executing:Check: check_win
+DEBUG:root:Result: Check: check_win -> Failure
+DEBUG:root:Result: Sequence: Attacking -> Failure
+DEBUG:root:Executing:Sequence: Weaken_Enemy_Strategy
+DEBUG:root:Executing:Check: is_enemy
+DEBUG:root:Result: Check: is_enemy -> Success
+DEBUG:root:Executing:Action: attack_weakest
+DEBUG:root:Order:1 2 50.0
+DEBUG:root:Result: Action: attack_weakest -> Success
+DEBUG:root:Result: Sequence: Weaken_Enemy_Strategy -> Success
+DEBUG:root:Result: Selector: Attack Strategy -> Success
+DEBUG:root:Result: Selector: High Level Ordering of Strategies -> Success
+DEBUG:root:Finish turn
+
+ERROR:root:Error in bot.
+Traceback (most recent call last):
+  File "C:\Users\chris\Documents\cmpm146\p3\behavior_tree_bot\bt_bot.py", line 73, in <module>
+    current_line = input()
+                   ^^^^^^^
+EOFError: EOF when reading a line

@@ -1,0 +1,12 @@
+DEBUG:root:Order:2 17 4.0
+ERROR:root:Error in bot.
+Traceback (most recent call last):
+  File "C:\Users\chris\Documents\cmpm146\p3\opponent_bots\aggressive_bot.py", line 78, in <module>
+    do_turn(planet_wars)
+  File "C:\Users\chris\Documents\cmpm146\p3\opponent_bots\aggressive_bot.py", line 67, in do_turn
+    spread(state)
+  File "C:\Users\chris\Documents\cmpm146\p3\opponent_bots\aggressive_bot.py", line 28, in spread
+    issue_order(state, my_planet.ID, target_planet.ID, required_ships)
+  File "C:\Users\chris\Documents\cmpm146\p3\planet_wars.py", line 25, in issue_order
+    stdout.flush()
+OSError: [Errno 22] Invalid argument
