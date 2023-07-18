@@ -38,6 +38,11 @@ def setup_behavior_tree():
     weakening_action = Action(attack_weakest)
     weakening_sequence.child_nodes = [weakening_check, weakening_action]
 
+    '''reinforcement_sequence = Sequence(name='Reinforcement_Strategy')
+    reinforcement_check = Check(is_enemy)
+    reinforcement_action = Action(reinforce_attack)
+    reinforcement_sequence.child_nodes = [reinforcement_check, reinforcement_action]'''
+
     Attack_sequence.child_nodes = [attack_plan, weakening_sequence]
 
     # Spread Plan
@@ -54,8 +59,11 @@ def setup_behavior_tree():
 
     root.child_nodes = [defensive_plan, Attack_sequence, spread_plan]
 
-    logging.info('\n' + root.tree_to_string())
-    return root
+    multiple_moves_sequence = Sequence(name='Calls for Multiple Moves')
+    multiple_moves_sequence.child_nodes = [root, root, root, root]
+
+    logging.info('\n' + multiple_moves_sequence.tree_to_string())
+    return multiple_moves_sequence
 
 
 # You don't need to change this function

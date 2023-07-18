@@ -2,6 +2,7 @@ import sys
 
 sys.path.insert(0, '../')
 from planet_wars import issue_order
+import logging
 
 
 # attack strategy methods:
@@ -73,6 +74,64 @@ def attack_weakest(state):
 
     ships_required = strongest_planet.num_ships / 2
     return issue_order(state, strongest_planet.ID, weakest_planet.ID, ships_required)
+
+
+'''def reinforce_attack(state):
+    # (1) If we currently don't have a fleet in flight, abort plan.
+    if len(state.my_fleets()) < 1:
+        return False
+
+    # (2) If the enemy currently doesn't have a fleet in flight, abort plan.
+    if len(state.enemy_fleets()) < 1:
+        return False
+
+    target_planet = None
+    for my_ship in state.my_fleets():
+        for enemy_ship in state.enemy_fleets():
+            if my_ship.destination_planet is enemy_ship.destination_planet:
+                target_planet = my_ship.destination_planet
+
+    if not target_planet:
+        return False
+
+    logging.info('\n' + "reinforcements identified target planet")
+    def strength(p):
+        return p.num_ships \
+            + sum(fleet.num_ships for fleet in state.my_fleets() if fleet.destination_planet == p.ID) \
+            - sum(fleet.num_ships for fleet in state.enemy_fleets() if fleet.destination_planet == p.ID)
+
+    def enemy_strength(p):
+        return p.num_ships \
+            - sum(fleet.num_ships for fleet in state.my_fleets() if fleet.destination_planet == p.ID) \
+            + sum(fleet.num_ships for fleet in state.enemy_fleets() if fleet.destination_planet == p.ID)
+
+    # only select planets that have not targeted
+    my_planets = [planet for planet in state.my_planets() if strength(planet) > 0]
+    if not my_planets:
+        return False
+
+    logging.info('\n' + "reinforcements available planets")
+
+    my_planets = iter(sorted(my_planets, key=lambda p: state.distance(target_planet, p.ID)))
+    my_planet = next(my_planets)
+
+    get_planet = {planet.ID: planet for planet in [*state.my_planets(), *state.enemy_planets(), *state.neutral_planets()]}
+    planet = get_planet[target_planet]
+
+    try:
+        while True:
+            logging.info('\n' + "reinforcements going through try loop")
+            required_ships = enemy_strength(planet) + enemy_ship.turns_remaining * planet.growth_rate + 1
+
+            if my_planet.num_ships > required_ships > 0:
+                logging.info('\n' + "reinforcements returning order")
+                return issue_order(state, my_planet.ID, target_planet, required_ships)
+            else:
+                my_planet = next(my_planets)
+
+    except StopIteration:
+        logging.info('\n' + "reinforcements false")
+        return False'''
 
 
 # spread stuff
